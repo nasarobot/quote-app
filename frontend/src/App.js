@@ -20,16 +20,22 @@ function App() {
   }, [submit]);
 
   const handleSubmit = async () => {
-    try {
-      const res = await axios.post("https://quote-app-9uwj.onrender.com/quote", {
-        "author": qAuthor,
-        "quote": qString
-      })
-      setSubmit(res);
+    if(qAuthor && qString){
+      try {
+        const res = await axios.post("https://quote-app-9uwj.onrender.com/quote", {
+          "author": qAuthor,
+          "quote": qString
+        })
+        setSubmit(res)
+        setQAuthor('');
+        setQString('');
+      }
+      catch {
+        alert("Something Went Wrong");
+      }
     }
-    catch {
-      alert("Something Went Wrong");
-    }
+    else
+      alert("Both quote and author need to be specified.")
   }
 
 
@@ -40,11 +46,11 @@ function App() {
           <h1>Add your quote!</h1>
           <div>
             <label htmlFor="quote">Quote:</label>
-            <input type="text" id='quote' name='quote' onChange={(e) => { setQString(e.target.value) }} style={{ overflow: "scroll" }} />
+            <input type="text" id='quote' name='quote' value={qString} onChange={(e) => { setQString(e.target.value) }} style={{ overflow: "scroll" }} />
           </div>
           <div>
             <label htmlFor="author-name">Author:</label>
-            <input type="text" id='author-name' name='author-name' onChange={(e) => { setQAuthor(e.target.value) }} />
+            <input type="text" id='author-name' name='author-name' value={qAuthor} onChange={(e) => { setQAuthor(e.target.value) }} />
           </div>
           <button id='submit' onClick={handleSubmit}>Submit</button>
         </div>
