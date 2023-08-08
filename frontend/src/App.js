@@ -9,7 +9,7 @@ function App() {
   const [submit, setSubmit] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5050/quote")
+    axios.get("https://quote-app-9uwj.onrender.com/quote")
       .then((res) => {
         setQ(res.data)
         .then()
@@ -21,7 +21,7 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.post("http://localhost:5050/quote", {
+      const res = await axios.post("https://quote-app-9uwj.onrender.com/quote", {
         "author": qAuthor,
         "quote": qString
       })
